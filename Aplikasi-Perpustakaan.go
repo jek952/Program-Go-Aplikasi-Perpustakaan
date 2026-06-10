@@ -38,18 +38,19 @@ func tampilAwal(dataBuku *[MAXBUKU]Buku, jumlahBuku *int, dataPeminjam *[MAXPINJ
 	var pilih int
 	var jalan bool = true
 
+	fmt.Println("╔══════════════════════════════════════════════╗")
+	fmt.Println("║                                              ║")
+	fmt.Println("║             APLIKASI PERPUSTAKAAN            ║")
+	fmt.Println("║                                              ║")
+	fmt.Println("╠══════════════════════════════════════════════╣")
+	fmt.Println("║                  Created By                  ║")
+	fmt.Println("║                                              ║")
+	fmt.Println("║    • Dzakky Al Firdaus   (103032500023)      ║")
+	fmt.Println("║    • Reyhan Putra D.A.H  (103032500023)      ║")
+	fmt.Println("║                                              ║")
+	fmt.Println("╚══════════════════════════════════════════════╝")
+
 	for jalan {
-		fmt.Println("╔══════════════════════════════════════════════╗")
-		fmt.Println("║                                              ║")
-		fmt.Println("║             APLIKASI PERPUSTAKAAN            ║")
-		fmt.Println("║                                              ║")
-		fmt.Println("╠══════════════════════════════════════════════╣")
-		fmt.Println("║                  Created By                  ║")
-		fmt.Println("║                                              ║")
-		fmt.Println("║    • Dzakky Al Firdaus   (103032500023)      ║")
-		fmt.Println("║    • Reyhan Putra D.A.H  (103032500023)      ║")
-		fmt.Println("║                                              ║")
-		fmt.Println("╚══════════════════════════════════════════════╝")
 		fmt.Println()
 		fmt.Println("1. Masuk ke Menu")
 		fmt.Println("2. Exit")
@@ -63,7 +64,7 @@ func tampilAwal(dataBuku *[MAXBUKU]Buku, jumlahBuku *int, dataPeminjam *[MAXPINJ
 			fmt.Println("Terimakasih Sudah Menggunakan Aplikasi")
 			jalan = false // Menggantikan 'break'
 		} else {
-			fmt.Println("Silahkan masukkan pilihan yang tersedia!")
+			fmt.Println("\nSilahkan masukkan pilihan yang tersedia!")
 		}
 	}
 }
@@ -72,50 +73,50 @@ func tampilMenu(dataBuku *[MAXBUKU]Buku, jumlahBuku *int, dataPeminjam *[MAXPINJ
 	var pilihan int
 
 	for pilihan != 10 {
-		fmt.Println("╔══════════════════════════════════════════════╗")
-		fmt.Println("║                                              ║")
-		fmt.Println("║          📚APLIKASI PERPUSTAKAAN📚           ║")
-		fmt.Println("║                                              ║")
-		fmt.Println("╠══════════════════════════════════════════════╣")
-		fmt.Println("║                  Created By                  ║")
-		fmt.Println("║                                              ║")
-		fmt.Println("║  • Dzakky Al Firdaus   (103032500023)        ║")
-		fmt.Println("║  • Reyhan Putra D.A.H  (103032500023)        ║")
-		fmt.Println("║                                              ║")
-		fmt.Println("╚══════════════════════════════════════════════╝")
+		fmt.Println("\n==================================================")
+		fmt.Println("                   MENU UTAMA                     ")
+		fmt.Println("==================================================")
+		fmt.Println("Selamat datang di halaman admin Perpustakaan.")
+		fmt.Println("Silakan pilih menu di bawah ini untuk mengelola")
+		fmt.Println("data buku, peminjaman, serta operasional lainnya.")
+		fmt.Println("--------------------------------------------------")
+		fmt.Println()
 		fmt.Println("1.  Tambah Buku")
 		fmt.Println("2.  Tampilkan Buku")
 		fmt.Println("3.  Cari Buku")
 		fmt.Println("4.  Edit Buku")
-		fmt.Println("5.  Sorting Buku")
-		fmt.Println("6.  Hapus Buku")
-		fmt.Println("7.  Pinjam Buku (Belum Tersedia)")
-		fmt.Println("8.  Kembalikan Buku (Belum Tersedia)")
-		fmt.Println("9.  Buku Favorit (Belum Tersedia)")
+		fmt.Println("5.  Hapus Buku")
+		fmt.Println("6.  Sorting Buku")
+		fmt.Println("7.  Pinjam Buku")
+		fmt.Println("8.  Kembalikan Buku")
+		fmt.Println("9.  Buku Favorit")
 		fmt.Println("10. Exit")
 		fmt.Print("Pilih menu: ")
 		fmt.Scan(&pilihan)
 
-		if pilihan == 1 {
+		switch pilihan {
+		case 1:
 			tambahBuku(dataBuku, jumlahBuku)
-		} else if pilihan == 2 {
+		case 2:
 			tampilBuku(dataBuku, *jumlahBuku)
-		} else if pilihan == 3 {
+		case 3:
 			cariBuku(dataBuku, *jumlahBuku)
-		} else if pilihan == 4 {
+		case 4:
 			editBuku(dataBuku, *jumlahBuku)
-		} else if pilihan == 5 {
-			menuSorting(dataBuku, *jumlahBuku)
-		} else if pilihan == 6 {
+		case 5:
 			hapusBuku(dataBuku, jumlahBuku)
-		} else if pilihan == 7 {
+		case 6:
+			menuSorting(dataBuku, *jumlahBuku)
+		case 7:
 			pinjamBuku(dataBuku, *jumlahBuku, dataPeminjam, jumlahPinjam)
-		} else if pilihan == 8 {
+		case 8:
 			kembalikanBuku(dataBuku, *jumlahBuku, dataPeminjam, jumlahPinjam)
-		} else if pilihan == 9 {
-			// bukuFavorit(dataBuku, *jumlahBuku)
-		} else if pilihan == 10 {
+		case 9:
+			bukuFavorit(dataBuku, *jumlahBuku)
+		case 10:
 			fmt.Println("\nKembali ke halaman awal 🔙")
+		default:
+			fmt.Println("Pilihan tidak valid!")
 		}
 	}
 }
@@ -125,59 +126,83 @@ func tambahBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku *int) {
 
 	for lagi != "no" && lagi != "n" {
 		fmt.Println()
-		fmt.Println("===== TAMBAH BUKU =====")
+		fmt.Println("===== MENU TAMBAH BUKU =====")
 
-		fmt.Print("Masukkan ID Buku : ")
+		fmt.Print("Masukkan ID Buku >> ")
 		fmt.Scan(&dataBuku[*jumlahBuku].ID)
 
 		input.ReadString('\n')
 
-		fmt.Print("Masukkan Judul Buku : ")
+		fmt.Print("Masukkan Judul Buku >> ")
 		judul, _ := input.ReadString('\n')
 		dataBuku[*jumlahBuku].Judul = strings.TrimSpace(judul)
 
-		fmt.Print("Masukkan Penulis Buku : ")
+		fmt.Print("Masukkan Penulis Buku >> ")
 		penulis, _ := input.ReadString('\n')
 		dataBuku[*jumlahBuku].Penulis = strings.TrimSpace(penulis)
 
-		fmt.Print("Masukkan Tahun : ")
+		fmt.Print("Masukkan Genre >> ")
+		fmt.Scan(&dataBuku[*jumlahBuku].Genre)
+
+		fmt.Print("Masukkan Tahun >> ")
 		fmt.Scan(&dataBuku[*jumlahBuku].Tahun)
 
-		fmt.Print("Stok: ")
+		fmt.Print("Stok >> ")
 		fmt.Scan(&dataBuku[*jumlahBuku].Stok)
+
+		fmt.Print("Tarif (Per Hari) >> ")
+		fmt.Scan(&dataBuku[*jumlahBuku].Tarif)
 
 		dataBuku[*jumlahBuku].Dipinjam = 0
 
 		*jumlahBuku++
 
 		fmt.Println()
-		fmt.Println("Buku berhasil ditambahkan!")
+		fmt.Println("\n✅ Buku berhasil ditambahkan!")
 
-		fmt.Print("Tambah buku lagi? (yes/no): ")
+		fmt.Print("Tambah buku lagi? (yes/no) >> ")
 		fmt.Scan(&lagi)
-		fmt.Println()
 	}
 }
 
 func tampilBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
-	var i int
-
-	fmt.Println()
-	fmt.Println("===== DATA BUKU =====")
+	fmt.Println("\n=== [ 📚 DAFTAR DATA BUKU ] ===")
 
 	if jumlahBuku == 0 {
-		fmt.Println("Belum ada data buku")
+		fmt.Println("Belum ada data buku di perpustakaan.")
 	} else {
-		for i = 0; i < jumlahBuku; i++ {
-			fmt.Println("ID       :", dataBuku[i].ID)
-			fmt.Println("Judul    :", dataBuku[i].Judul)
-			fmt.Println("Penulis  :", dataBuku[i].Penulis)
-			fmt.Println("Tahun    :", dataBuku[i].Tahun)
-			fmt.Println("Stok     :", dataBuku[i].Stok)
-			fmt.Println("Dipinjam :", dataBuku[i].Dipinjam, "kali")
-			fmt.Println("Tarif/Hr :", dataBuku[i].Tarif)
-			fmt.Println("======================")
+		fmt.Println("=========================================================================================================")
+		fmt.Printf("| %-4s | %-25s | %-15s | %-20s | %-5s | %-4s | %-6s | %-9s |\n",
+			"ID", "Judul Buku", "Genre", "Penulis", "Tahun", "Stok", "Pinjam", "Tarif/Hr")
+		fmt.Println("=========================================================================================================")
+
+		for i := 0; i < jumlahBuku; i++ {
+			judulTampil := dataBuku[i].Judul
+			if len(judulTampil) > 24 {
+				judulTampil = judulTampil[:22] + "..."
+			}
+
+			genreTampil := dataBuku[i].Genre
+			if len(genreTampil) > 15 {
+				genreTampil = genreTampil[:12] + "..."
+			}
+
+			penulisTampil := dataBuku[i].Penulis
+			if len(penulisTampil) > 19 {
+				penulisTampil = penulisTampil[:17] + "..."
+			}
+
+			fmt.Printf("| %-4d | %-25s | %-15s | %-15s | %-5d | %-4d | %-6d | Rp %-6d |\n",
+				dataBuku[i].ID,
+				judulTampil,
+				dataBuku[i].Genre,
+				dataBuku[i].Penulis,
+				dataBuku[i].Tahun,
+				dataBuku[i].Stok,
+				dataBuku[i].Dipinjam,
+				dataBuku[i].Tarif)
 		}
+		fmt.Println("=========================================================================================================")
 	}
 
 	fmt.Println("Tekan enter untuk kembali...")
@@ -190,24 +215,6 @@ func sequentialSearchJudul(dataBuku *[MAXBUKU]Buku, jumlahBuku int, cariJudul st
 	for i := 0; i < jumlahBuku && idx == -1; i++ {
 		if dataBuku[i].Judul == cariJudul {
 			idx = i
-		}
-	}
-	return idx
-}
-
-func binarySearchID(databuku *[MAXBUKU]Buku, jumlahBuku int, cariID int) int {
-	var low, mid int
-	var high int = jumlahBuku - 1
-	var idx int = -1
-
-	for low <= high && idx == -1 {
-		mid = (low + high) / 2
-		if dataBuku[mid].ID == cariID {
-			idx = mid
-		} else if dataBuku[mid].ID < cariID {
-			low = mid + 1
-		} else {
-			high = mid - 1
 		}
 	}
 	return idx
@@ -228,45 +235,64 @@ func urutkanBukuByID(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
 	}
 }
 
+func binarySearchID(databuku *[MAXBUKU]Buku, jumlahBuku int, cariID int) int {
+	var low, mid int
+	var high int = jumlahBuku - 1
+	var idx int = -1
+
+	for low <= high && idx == -1 {
+		mid = (low + high) / 2
+		if dataBuku[mid].ID == cariID {
+			idx = mid
+		} else if dataBuku[mid].ID < cariID {
+			low = mid + 1
+		} else {
+			high = mid - 1
+		}
+	}
+	return idx
+}
+
 func cariBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
 	var ulang string
 	var pilihan int
+	var idx int = -1
+	var cariID int
 
 	for ulang != "n" && ulang != "no" {
-		fmt.Println("\n===== Cari Buku =====")
+		fmt.Println("\n===== [ CARI BUKU ] =====")
 		fmt.Println("1. Cari Berdasarkan Judul (Sequential Search)")
 		fmt.Println("2. Cari Berdasarkan ID (Binary Search)")
-		fmt.Print("Pilih jenis pencarian: ")
+		fmt.Print("Pilih jenis pencarian >> ")
 		fmt.Scan(&pilihan)
 
 		input.ReadString('\n')
-		var idx int = -1
 
 		if pilihan == 1 {
-			fmt.Print("Masukkan Judul yang dicari : ")
+			fmt.Print("Masukkan Judul yang dicari >> ")
 			cariJudul, _ := input.ReadString('\n')
 			idx = sequentialSearchJudul(dataBuku, jumlahBuku, strings.TrimSpace(cariJudul))
 		} else if pilihan == 2 {
 			urutkanBukuByID(dataBuku, jumlahBuku)
-			var cariID int
-			fmt.Print("Masukkan ID yang dicari : ")
+			fmt.Print("Masukkan ID yang dicari >> ")
 			fmt.Scan(&cariID)
 			idx = binarySearchID(dataBuku, jumlahBuku, cariID)
 		}
 
 		if idx != -1 {
-			fmt.Println("\n===== Buku ditemukan! =====")
-			fmt.Println("ID       :", dataBuku[idx].ID)
-			fmt.Println("Judul    :", dataBuku[idx].Judul)
-			fmt.Println("Genre    :", dataBuku[idx].Genre)
-			fmt.Println("Penulis  :", dataBuku[idx].Penulis)
-			fmt.Println("Tahun    :", dataBuku[idx].Tahun)
-			fmt.Println("Stok     :", dataBuku[idx].Stok)
-			fmt.Println("==========================")
+			fmt.Println("\n✅ Buku ditemukan!")
+			fmt.Println("--------------------------------------------------")
+			fmt.Printf("ID       : %d\n", dataBuku[idx].ID)
+			fmt.Printf("Judul    : %s\n", dataBuku[idx].Judul)
+			fmt.Printf("Genre    : %s\n", dataBuku[idx].Genre)
+			fmt.Printf("Penulis  : %s\n", dataBuku[idx].Penulis)
+			fmt.Printf("Tahun    : %d\n", dataBuku[idx].Tahun)
+			fmt.Printf("Stok     : %d\n", dataBuku[idx].Stok)
+			fmt.Println("--------------------------------------------------")
 		} else {
 			fmt.Println("Buku tidak ditemukan ❌")
 		}
-		fmt.Print("\nApakah ingin mencari buku lagi? (yes/no): ")
+		fmt.Print("\nApakah ingin mencari buku lagi? (yes/no) >> ")
 		fmt.Scan(&ulang)
 	}
 }
@@ -275,45 +301,100 @@ func editBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
 	var cariID int
 	var ditemukan bool
 	var ulang string
+	var pilihanEdit int
 
 	for ulang != "n" {
 		ditemukan = false
 
 		fmt.Println()
-		fmt.Println("===== Edit Buku =====")
-		fmt.Print("Masukkan ID Buku :")
+		fmt.Println("===== [ EDIT BUKU ] =====")
+		fmt.Print("Masukkan ID Buku yang ingin diedit >> ")
 		fmt.Scan(&cariID)
 
 		for i := 0; i < jumlahBuku; i++ {
 			if dataBuku[i].ID == cariID {
+				ditemukan = true
+
+				fmt.Println("\nData Buku Saat Ini:")
+				fmt.Printf("1. ID       : %d\n", dataBuku[i].ID)
+				fmt.Printf("2. Judul    : %s\n", dataBuku[i].Judul)
+				fmt.Printf("3. Penulis  : %s\n", dataBuku[i].Penulis)
+				fmt.Printf("4. Genre    : %s\n", dataBuku[i].Genre)
+				fmt.Printf("5. Tahun    : %d\n", dataBuku[i].Tahun)
+				fmt.Printf("6. Stok     : %d\n", dataBuku[i].Stok)
+				fmt.Printf("7. Tarif/Hr : Rp %d\n", dataBuku[i].Tarif)
+				fmt.Println("8. Edit Keseluruhan")
+				fmt.Println("9. Batal Edit")
+				fmt.Print("\nPilih bagian yang ingin diedit (1-9) >> ")
+				fmt.Scan(&pilihanEdit)
+
 				input.ReadString('\n')
 
-				fmt.Print("Masukkan Judul Baru : ")
-				judul, _ := input.ReadString('\n')
-				dataBuku[i].Judul = strings.TrimSpace(judul)
+				if pilihanEdit == 1 {
+					fmt.Print("Masukkan ID Baru >> ")
+					fmt.Scan(&dataBuku[i].ID)
+					fmt.Println("\n✅ ID berhasil diubah!")
+				} else if pilihanEdit == 2 {
+					fmt.Print("Masukkan Judul Baru >> ")
+					fmt.Scan(&dataBuku[i].Judul)
+					fmt.Println("\n✅ Judul berhasil diubah!")
+				} else if pilihanEdit == 3 {
+					fmt.Print("Masukkan Penulis Baru >> ")
+					penulisBaru, _ := input.ReadString('\n')
+					dataBuku[i].Penulis = strings.TrimSpace(penulisBaru)
+					fmt.Println("\n✅ Penulis berhasil diubah!")
+				} else if pilihanEdit == 4 {
+					fmt.Print("Masukkan Genre Baru >> ")
+					fmt.Scan(&dataBuku[i].Genre)
+					fmt.Println("\n✅ Genre berhasil diubah!")
+				} else if pilihanEdit == 5 {
+					fmt.Print("Masukkan Tahun Baru >> ")
+					fmt.Scan(&dataBuku[i].Tahun)
+					fmt.Println("\n✅ Tahun berhasil diubah!")
+				} else if pilihanEdit == 6 {
+					fmt.Print("Masukkan Stok Baru >> ")
+					fmt.Scan(&dataBuku[i].Stok)
+					fmt.Println("\n✅ Stok berhasil diubah!")
+				} else if pilihanEdit == 7 {
+					fmt.Print("Masukkan Stok Baru >> ")
+					fmt.Scan(&dataBuku[i].Stok)
+					fmt.Println("\n✅ Stok berhasil diubah!")
+				} else if pilihanEdit == 8 {
+					fmt.Print("Masukkan ID Baru >> ")
+					fmt.Scan(&dataBuku[i].ID)
 
-				fmt.Print("Masukkan Genre Baru : ")
-				fmt.Scan(&dataBuku[i].Genre)
+					fmt.Print("Masukkan Judul Baru >> ")
+					judul, _ := input.ReadString('\n')
+					dataBuku[i].Judul = strings.TrimSpace(judul)
 
-				fmt.Print("Edit Penulis Baru : ")
-				penulis, _ := input.ReadString('\n')
-				dataBuku[i].Penulis = strings.TrimSpace(penulis)
+					fmt.Print("Masukkan Genre Baru >> ")
+					fmt.Scan(&dataBuku[i].Genre)
 
-				fmt.Print("Edit Tahun : ")
-				fmt.Scan(&dataBuku[i].Tahun)
+					fmt.Print("Edit Penulis Baru >> ")
+					penulis, _ := input.ReadString('\n')
+					dataBuku[i].Penulis = strings.TrimSpace(penulis)
 
-				fmt.Print("Edit Stok Buku : ")
-				fmt.Scan(&dataBuku[i].Stok)
+					fmt.Print("Edit Tahun >> ")
+					fmt.Scan(&dataBuku[i].Tahun)
 
-				fmt.Println("Data berhasil diubah")
-				ditemukan = true
+					fmt.Print("Edit Stok Buku >> ")
+					fmt.Scan(&dataBuku[i].Stok)
+
+					fmt.Print("Edit Tarif Denda >> ")
+					fmt.Scan(^dataBuku[i].Tarif)
+
+					fmt.Println("\n✅ Seluruh data berhasil diubah!")
+				} else if pilihanEdit == 9 {
+					fmt.Println("\n🔙 Proses edit dibatalkan.")
+				} else {
+					fmt.Println("\n❌ Pilihan tidak valid.")
+				}
 			}
 		}
-
 		if !ditemukan {
 			fmt.Println("Tidak ada data yang ditemukan")
 		}
-		fmt.Print("Apakah ingin mengubah data lagi ? (y/n) :")
+		fmt.Print("Apakah ingin mengubah data lagi ? (y/n) >>")
 		fmt.Scan(&ulang)
 	}
 }
@@ -328,8 +409,8 @@ func hapusBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku *int) {
 		ditemukan = false
 
 		fmt.Println()
-		fmt.Println("===== Hapus Buku =====")
-		fmt.Print("Masukkan ID Buku : ")
+		fmt.Println("===== [ HAPUS BUKU ] =====")
+		fmt.Print("Masukkan ID Buku >> ")
 		fmt.Scan(&cariID)
 
 		for i := 0; i < *jumlahBuku; i++ {
@@ -348,20 +429,25 @@ func hapusBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku *int) {
 		} else {
 			fmt.Println("ID buku tidak ditemukan")
 		}
-		fmt.Print("Apakah ingin menghapus lagi? (y/n): ")
+		fmt.Print("Apakah ingin menghapus lagi? (y/n) >> ")
 		fmt.Scan(&ulang)
 	}
 }
+
+// -------------------------------------------------------------
+// FITUR PEMINJAMAN & PENGEMBALIAN BUKU
+// -------------------------------------------------------------
 
 func pinjamBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXPINJAM]Peminjaman, jumlahPinjam *int) {
 	var ulang string
 	var pilihan int
 
 	for ulang != "n" && ulang != "no" {
-		fmt.Println("\n===== PINJAM BUKU =====")
+		fmt.Println("\n===== [ PINJAM BUKU ] =====")
 		fmt.Println("1. Cari Berdasarkan Judul")
 		fmt.Println("2. Cari Berdasarkan ID")
-		fmt.Println("Pilih jenis pencarian : ")
+		fmt.Println("3. Kembali ke menu utama")
+		fmt.Print("Pilih jenis pencarian >> ")
 		fmt.Scan(&pilihan)
 
 		input.ReadString('\n')
@@ -369,26 +455,28 @@ func pinjamBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXPINJA
 		var idxBuku int = -1
 
 		if pilihan == 1 {
-			fmt.Print("Masukkan Judul Buku yang ingin dipinjam : ")
+			fmt.Print("Masukkan Judul Buku yang ingin dipinjam >> ")
 			cariJudul, _ := input.ReadString('\n')
 			idxBuku = sequentialSearchJudul(dataBuku, jumlahBuku, strings.TrimSpace(cariJudul))
 		} else if pilihan == 2 {
 			var cariIDBuku int
-			fmt.Print("Masukkan ID Buku yang akan dipinjam: ")
+			fmt.Print("Masukkan ID Buku yang akan dipinjam >> ")
 			fmt.Scan(&cariIDBuku)
 			urutkanBukuByID(dataBuku, jumlahBuku)
 			idxBuku = binarySearchID(dataBuku, jumlahBuku, cariIDBuku)
+		} else if pilihan == 3 {
+			ulang = "n"
 		} else {
 			fmt.Println("Pilihan pencarian tidak valid")
 		}
 
 		if idxBuku != -1 {
-			fmt.Print("ID Peminjaman : ")
+			fmt.Print("ID Peminjaman >> ")
 			fmt.Scan(&dataPeminjam[*jumlahPinjam].IDPinjam)
 
 			input.ReadString('\n')
 
-			fmt.Print("Nama Peminjam : ")
+			fmt.Print("Nama Peminjam >> ")
 			namaPeminjam, _ := input.ReadString('\n')
 			dataPeminjam[*jumlahPinjam].NamaPeminjam = strings.TrimSpace(namaPeminjam)
 
@@ -399,9 +487,9 @@ func pinjamBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXPINJA
 			dataBuku[idxBuku].Dipinjam++
 
 			*jumlahPinjam++
-			fmt.Println("Buku berhasil dipinjam!")
+			fmt.Println(" \n✅ Buku berhasil dipinjam")
 		} else {
-			fmt.Println("Mohon maaf, stok buku sedang habis")
+			fmt.Println("\n❌ Mohon maaf, stok buku sedang habis")
 		}
 	}
 }
@@ -409,10 +497,11 @@ func pinjamBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXPINJA
 func kembalikanBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXPINJAM]Peminjaman, jumlahPinjam *int) {
 	var ulang string
 	var cariIDPinjam int
+	var aktual int
 
 	for ulang != "n" && ulang != "no" {
-		fmt.Println("\n===== KEMBALIKAN BUKU =====")
-		fmt.Print("Masukkan ID peminjaman : ")
+		fmt.Println("\n===== [ KEMBALIKAN BUKU ] =====")
+		fmt.Print("Masukkan ID peminjaman >> ")
 		fmt.Scan(&cariIDPinjam)
 
 		idxPinjam := -1
@@ -424,11 +513,68 @@ func kembalikanBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXP
 		}
 
 		if idxPinjam != -1 {
+			urutkanBukuByID(dataBuku, jumlahBuku)
+			idxBuku := binarySearchID(dataBuku, jumlahBuku, dataPeminjam[idxPinjam].IDBuku)
 
+			fmt.Println("---------------------------------------------------")
+			fmt.Println("Peminjam 			: ", dataPeminjam[idxPinjam].NamaPeminjam)
+			fmt.Println("Buku yang dipinjam : ", dataBuku[idxBuku].Judul)
+			fmt.Println("Tenggat 			: ", dataPeminjam[idxPinjam].LamaPinjam)
+			fmt.Println("---------------------------------------------------")
+
+			fmt.Println("Berapa hari buku ini dikembalikan ? >> ")
+			fmt.Scan(&aktual)
+
+			if aktual > dataPeminjam[idxPinjam].LamaPinjam {
+				telat := aktual - dataPeminjam[idxPinjam].LamaPinjam
+				denda := telat * dataBuku[idxBuku].Tarif
+				fmt.Printf("Terlambat %d hari! Denda: Rp %d\n", telat, denda)
+			} else {
+				fmt.Println("Dikembalikan tepat waktu. Tidak ada denda.")
+			}
+
+			if idxBuku != -1 {
+				dataBuku[idxBuku].Stok++
+			}
+
+			for i := idxPinjam; i < *jumlahPinjam-1; i++ {
+				dataPeminjam[i] = dataPeminjam[i+1]
+			}
+			*jumlahPinjam--
+			fmt.Println("Buku berhasil dikembalikan.")
+		} else {
+			fmt.Println("Data Peminjaman tidak ditemukan.")
 		}
-
+		fmt.Print("\nKembalikan buku yang lain? (yes/no) >> ")
+		fmt.Scan(&ulang)
 	}
+}
 
+func bukuFavorit(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
+	var idxMax int = 0
+
+	fmt.Println("==== BUKU FAVORIT ====")
+	if jumlahBuku == 0 {
+		fmt.Println("Data Buku masih kosong!")
+	} else {
+		for i := 0; i < jumlahBuku; i++ {
+			if dataBuku[i].Dipinjam > dataBuku[idxMax].Dipinjam {
+				idxMax = i
+			}
+		}
+		if dataBuku[idxMax].Dipinjam == 0 {
+			fmt.Println("Belum ada buku yang dipinjam.")
+		} else {
+			fmt.Println("--------------------------------------------------")
+			fmt.Println("Judul Buku   :", dataBuku[idxMax].Judul)
+			fmt.Println("Penulis      :", dataBuku[idxMax].Penulis)
+			fmt.Println("Total Pinjam :", dataBuku[idxMax].Dipinjam, "Kali")
+			fmt.Println("--------------------------------------------------")
+		}
+	}
+	fmt.Println("\nTekan Enter untuk kembali ke menu...")
+	input.ReadString('\n')
+	input.ReadString('\n')
 }
 
 func menuSorting(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
