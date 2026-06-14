@@ -17,11 +17,13 @@ type Buku struct {
 }
 
 type Peminjaman struct {
-	IDPinjam     int
-	NamaPeminjam string
-	IDBuku       int
-	LamaPinjam   int
-	Denda        int
+	IDPinjam       int
+	NamaPeminjam   string
+	IDBuku         int
+	LamaPinjam     int
+	Denda          int
+	TanggalPinjam  int
+	TanggalKembali int
 }
 
 var dataBuku [MAXBUKU]Buku
@@ -435,7 +437,6 @@ func pinjamBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXPINJA
 			fmt.Println("\nPilihan pencarian tidak valid")
 		}
 
-
 		if idxBuku != -1 {
 			if dataBuku[idxBuku].Stok > 0 {
 				fmt.Print("ID Peminjaman : ")
@@ -443,6 +444,12 @@ func pinjamBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXPINJA
 
 				fmt.Print("Nama Peminjam : ")
 				fmt.Scan(&dataPeminjam[*jumlahPinjam].NamaPeminjam)
+
+				fmt.Print("Tanggal Pinjam (cth: 12/10/2026) >> ")
+				fmt.Scan(&dataPeminjam[*jumlahPinjam].TanggalPinjam)
+
+				fmt.Print("Tanggal Kembali (cth: 15/10/2026) >> ")
+				fmt.Scan(&dataPeminjam[*jumlahPinjam].TanggalKembali)
 
 				fmt.Print("Lama Pinjam (hari) : ")
 				fmt.Scan(&dataPeminjam[*jumlahPinjam].LamaPinjam)
@@ -493,6 +500,8 @@ func kembalikanBuku(dataBuku *[MAXBUKU]Buku, jumlahBuku int, dataPeminjam *[MAXP
 			fmt.Println("---------------------------------------------------")
 			fmt.Println("Peminjam           : ", dataPeminjam[idxPinjam].NamaPeminjam)
 			fmt.Println("Buku yang dipinjam : ", dataBuku[idxBuku].Judul)
+			fmt.Println("Tanggal Pinjam     : ", dataPeminjam[idxPinjam].TanggalPinjam)
+			fmt.Println("Tanggal Kembali    : ", dataPeminjam[idxPinjam].TanggalKembali)
 			fmt.Println("Tenggat (Hari)     : ", dataPeminjam[idxPinjam].LamaPinjam)
 			fmt.Println("---------------------------------------------------")
 
@@ -528,9 +537,9 @@ func tampilPeminjaman(dataPeminjam *[MAXPINJAM]Peminjaman, jumlahPinjam int, dat
 	if jumlahPinjam == 0 {
 		fmt.Println("Belum ada data peminjaman yang sedang berlangsung.")
 	} else {
-		fmt.Println("===========================================================================")
-		fmt.Printf("| %-10s | %-20s | %-20s | %-12s |\n", "ID Pinjam", "Nama Peminjam", "Judul Buku", "Lama Pinjam")
-		fmt.Println("===========================================================================")
+		fmt.Println("======================================================================================================")
+		fmt.Printf("| %-10s | %-15s | %-17s | %-12s | %-12s | %-11s |\n", "ID Pinjam", "Nama Peminjam", "Judul Buku", "Tgl Pinjam", "Tgl Kembali", "Lama Pinjam")
+		fmt.Println("======================================================================================================")
 
 		for i := 0; i < jumlahPinjam; i++ {
 			idxBuku := -1
@@ -545,18 +554,15 @@ func tampilPeminjaman(dataPeminjam *[MAXPINJAM]Peminjaman, jumlahPinjam int, dat
 			judul := "Tidak Ditemukan"
 			if idxBuku != -1 {
 				judul = dataBuku[idxBuku].Judul
-				if len(judul) > 17 {
-					judul = judul[:15] + "..."
-				}
 			}
 
-			nama := dataPeminjam[i].NamaPeminjam
-			if len(nama) > 17 {
-				nama = nama[:15] + "..."
-			}
-
-			fmt.Printf("| %-10d | %-20s | %-20s | %-7d Hari |\n",
-				dataPeminjam[i].IDPinjam, nama, judul, dataPeminjam[i].LamaPinjam)
+			fmt.Printf("| %-10d | %-15.15s | %-17.17s | %-12.12s | %-12.12s | %-6d Hari |\n",
+				dataPeminjam[i].IDPinjam,
+				dataPeminjam[i].NamaPeminjam,
+				judul,
+				dataPeminjam[i].TanggalPinjam,
+				dataPeminjam[i].TanggalKembali,
+				dataPeminjam[i].LamaPinjam)
 		}
 		fmt.Println("======================================================================================")
 	}
@@ -582,9 +588,11 @@ func editPeminjaman(dataPeminjam *[MAXPINJAM]Peminjaman, jumlahPinjam int) {
 				ditemukan = true
 				fmt.Println("\nData Peminjaman Saat Ini:")
 				fmt.Printf("1. Nama Peminjam : %s\n", dataPeminjam[i].NamaPeminjam)
-				fmt.Printf("2. Lama Pinjam   : %d Hari\n", dataPeminjam[i].LamaPinjam)
-				fmt.Println("3. Batal Edit")
-				fmt.Print("\nPilih bagian yang ingin diedit (1-3) : ")
+				fmt.Printf("2. Tanggal Pinjam: %s\n", dataPeminjam[i].TanggalPinjam)
+				fmt.Printf("3. Tanggal Kmbli : %s\n", dataPeminjam[i].TanggalKembali)
+				fmt.Printf("4. Lama Pinjam   : %d Hari\n", dataPeminjam[i].LamaPinjam)
+				fmt.Println("5. Batal Edit")
+				fmt.Print("\nPilih bagian yang ingin diedit (1-5) >> ")
 				fmt.Scan(&pilihanEdit)
 
 				if pilihanEdit == 1 {
@@ -592,13 +600,21 @@ func editPeminjaman(dataPeminjam *[MAXPINJAM]Peminjaman, jumlahPinjam int) {
 					fmt.Scan(&dataPeminjam[i].NamaPeminjam)
 					fmt.Println("\n Nama peminjam berhasil diubah!")
 				} else if pilihanEdit == 2 {
-					fmt.Print("Masukkan Lama Pinjam Baru (Hari) : ")
-					fmt.Scan(&dataPeminjam[i].LamaPinjam)
-					fmt.Println("\n Lama pinjam berhasil diubah!")
+					fmt.Print("Masukkan Tanggal Pinjam Baru (cth: 12/10/2026) >> ")
+					fmt.Scan(&dataPeminjam[i].TanggalPinjam)
+					fmt.Println("\n✅ Tanggal pinjam berhasil diubah!")
 				} else if pilihanEdit == 3 {
-					fmt.Println("\n Proses edit dibatalkan.")
+					fmt.Print("Masukkan Tanggal Kembali Baru (cth: 15/10/2026) >> ")
+					fmt.Scan(&dataPeminjam[i].TanggalKembali)
+					fmt.Println("\n✅ Tanggal kembali berhasil diubah!")
+				} else if pilihanEdit == 4 {
+					fmt.Print("Masukkan Lama Pinjam Baru (Hari) >> ")
+					fmt.Scan(&dataPeminjam[i].LamaPinjam)
+					fmt.Println("\n✅ Lama pinjam berhasil diubah!")
+				} else if pilihanEdit ==  5 {
+					fmt.Println("edit dibatalkan")
 				} else {
-					fmt.Println("\n Pilihan tidak valid.")
+					fmt.Println("Pilihan tidak valid")
 				}
 			}
 		}
@@ -666,8 +682,8 @@ func bukuFavorit(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
 		fmt.Println("===========================================================================")
 	}
 	fmt.Println("\nTekan Enter untuk kembali ke menu...")
-	fmt.Scan()
-	fmt.Scan()
+	fmt.Scanln()
+	fmt.Scanln()
 }
 
 func menuSorting(dataBuku *[MAXBUKU]Buku, jumlahBuku int) {
